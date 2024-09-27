@@ -1,0 +1,10 @@
+syntax = "proto3";
+package provider;
+
+option java_package = "com.vector.grpc.provider.user";
+
+import "common.proto";
+
+service User{
+  rpc listAllUser(common.EmptyParam)returns(common.StringResult);
+}

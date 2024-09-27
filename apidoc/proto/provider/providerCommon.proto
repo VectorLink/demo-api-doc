@@ -1,0 +1,205 @@
+syntax = "proto3";
+package provider;
+import "common.proto";
+option java_package = "com.vector.grpc.pms.procurement.model";
+
+// key-value
+message Dict {
+    int64 id = 1; // key
+    string name = 2; // value
+    int32 state = 3; //有效状态，0无效，1有效
+}
+
+// 币种(简单结构)
+message SimpleCurrenciesModel {
+    int64 id = 1; //
+    string name = 2; //
+    string code = 3;
+    string symbol = 4;
+}
+// 币种
+message CurrenciesQueryRespData {
+    repeated SimpleCurrenciesModel items = 1;
+}
+message CurrenciesQueryResp {
+    common.Result result = 1;
+    CurrenciesQueryRespData data = 2;
+}
+// v3 User（简单结构)
+message SimpleV3UserModel {
+    int64 userId = 1; //用户ID
+    string userDisplayName = 2; //用户编号
+    string userName = 3; //用户姓名
+}
+
+//v3 User
+message V3UserQueryRespData {
+    repeated SimpleV3UserModel items = 1;
+}
+message V3UserQueryResp {
+    common.Result result = 1;
+    V3UserQueryRespData data = 2;
+}
+// V3供应商(简单结构)
+message SimpleV3SupplierModel {
+    int64 id = 1; //流水号
+    string no = 2; //编号
+    string name = 3; //名称
+    int32 collectionPeriod = 4; //账期
+    double taxRate = 5;    //税率
+    int64 currenciesId = 6;   //币种
+}
+message DictListResp {
+    common.Result result = 1;
+    repeated Dict data = 2;
+}
+message StatusParam {
+    int32 status = 1;
+}
+message IntParam {
+    int32 data = 1;
+}
+
+// ID+String 参数
+message IdStrParam {
+    int64 id = 1;
+    string str = 2;
+}
+
+message IdStrListResult {
+    common.Result result = 1;
+    repeated IdStrParam data = 2;
+}
+
+//状态机记录（简单结构）
+message SimpleInstanceModel {
+    int64 instanceId = 1;
+    int64 enterTime = 2;
+    string state = 3;
+    string stateName = 4;
+}
+// 店铺信息
+message V3InnerShopInfoResp {
+    common.Result result = 1;
+    V3InnerShopInfoData data = 2;
+}
+message V3InnerShopInfoData {
+  repeated V3InnerShopInfoModel items = 1;
+}
+message V3InnerShopInfoModel {
+    string innerShopId = 1;
+    string innerShopName = 2;
+}
+
+message AttachmentModel {
+    int64 id = 1; //附件ID
+    string name = 2;
+    string url = 3;
+    int64 createTime = 4;
+    string operator = 5;
+}
+
+message LogModel {
+    int64 createTime = 1;
+    string operator = 2;
+    string detail = 3;
+    repeated string attachmentUrls = 4;
+}
+message LogParam {
+    repeated LogModel data = 1;
+}
+message LongResult {
+    common.Result result = 1;
+    int64 data = 2;
+}
+message mapResult{
+    common.Result result = 1;
+    map<string,int32> data = 2;
+}
+message mapLongResult{
+    common.Result result=1;
+    map<string,int64> data=2;
+}
+message intResult{
+    common.Result result = 1;
+    repeated int32 data = 2;
+}
+enum MerchantType{
+    LITB=0; //兰亭
+    EZBUY=1; //EZBUY
+    OTHER=2; //其他
+}
+message LogisticsParam {
+    int64  recordId = 1;                  // 运单信息唯一ID
+    string trackingNo = 2;                // 运单号
+    int64 expressId = 3;                  // 快递公司Id
+}
+
+// 档口信息
+message V3StallsInfo {
+    int64 id = 1;
+    string stallsNo = 2;
+    string stallsName = 3;
+}
+
+message V3StallsResp {
+    common.Result result = 1;
+    repeated V3StallsInfo data = 2;
+}
+
+message lsinParam {
+    string lsin = 1;
+}
+
+message LsinListParam {
+    repeated string lsinList = 1;
+}
+
+message SkuListParam {
+    repeated string skuList = 1;
+}
+
+// CMS分类带深度
+message CategoriesWithDepth {
+    int32 depth = 1;
+    int64 categoryId = 3;
+}
+//统计单行通用信息
+message StatisticsColumnModel{
+    string columnName=1;    //单列名
+    string columnCode=4;    //单列code
+    int32 columnNum=2;      //单列数量
+    string columnRate=3;    //单列比率
+    string anchorPercent = 5;//锚点百分比：单项质检不良项的质检不良数/总的参与质检数量*100%
+}
+
+message SupplierAndLsinListParam {
+    int64 supplierId = 1; //供应商id
+    repeated string lsinList = 2; //商品LSIN
+}
+
+message SupplierAndSkuListParam {
+    int64 supplierId = 1; //供应商id
+    repeated string skuList = 2; //商品sku
+}
+
+message SpExpressResp {
+  common.Result result = 1;
+  SpExpressModel data = 2;
+}
+
+message SpExpressModel {
+ int64 expressId = 1;
+ string expressName = 2;
+}
+
+message StrCountModel {
+    int32 id = 1;
+    string str = 2;
+    int32 count = 3;
+}
+
+message ProductsTypeTagModel {
+    int64 tagValueId = 1;
+    string tagValueName = 2;
+}

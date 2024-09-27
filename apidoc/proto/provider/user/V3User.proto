@@ -1,0 +1,31 @@
+syntax = "proto3";
+package provider;
+
+option java_package = "com.vector.grpc.provider.user";
+
+import "common.proto";
+import "provider/user/V3UserParam.proto";
+
+service V3User{
+  rpc listV3Users (V3UserIdOrNameParam) returns (ListUserPageResp); //分页查询用户列表
+  rpc addV3User(UserParam) returns (common.ApiResult);//添加用户
+  rpc editV3User(UserParam) returns(common.ApiResult);//编辑用户
+  rpc updateV3UserQrCode(UserQrCodeParam) returns(common.ApiResult);//上传，更新用户二维码
+  rpc getV3UserQrCode(common.IdParam) returns(common.StringResult);//查看用户二维码
+  rpc removeV3UserQrCode(common.IdParam) returns(common.ApiResult);//删除用户二维码
+
+
+  // 根据用户名查询用户
+  rpc getV3UserByName (common.StringParam) returns (V3UserResp);
+  // 获取系统用户
+  rpc getSysUser (common.EmptyParam) returns (V3UserResp);
+
+  // 批量查询用户信息
+  rpc getUserList (common.LongListParam) returns (V3UserListResp);
+  // 获取所有采购负责人
+  rpc getProcurePrincipalList (common.EmptyParam) returns (V3UserListResp);
+  // 获取BU
+  rpc listBu (common.EmptyParam) returns (BuListResp);
+
+
+ }

@@ -1,0 +1,257 @@
+syntax = "proto3";
+package common;
+
+option java_package = "com.vector.core";
+option swift_prefix = "GR";
+
+import "google.protobuf/descriptor.proto";
+
+message ApiResult {
+  Result result = 1;
+}
+
+message UploadResult {
+  Result result = 1;
+  string data = 2;
+}
+
+message DownloadResult {
+  Result result = 1;
+  File data = 2;
+}
+
+message EmptyParam {
+}
+
+
+message IdParam {
+  int64 id = 1;
+}
+
+message IdIntParam {
+  int32 id = 1;
+}
+
+
+message TypeParam {
+  int32 type = 1;
+}
+
+
+message IdCommentParam {
+  int64 id = 1;
+  string comment = 2;
+}
+
+message IdListCommentParam {
+  repeated int64 idList = 1;
+  string comment = 2;
+}
+
+message IdsParam {
+  repeated int64 ids = 1;
+}
+
+message SkuUidsParam {
+  repeated string skuUids = 1;
+}
+
+message StringParam {
+  string str = 1;
+}
+
+message StringListParam {
+  repeated string str = 1;
+}
+
+message LongListParam {
+  repeated int64 idList = 1;
+}
+
+message IntegerListParam {
+  repeated int32 idList = 1;
+}
+
+message StringResult {
+  Result result = 1;
+  string data = 2;
+}
+
+message StringsResult {
+  Result result = 1;
+  repeated string data = 2;
+}
+
+message DoubleResult {
+  Result result = 1;
+  double data = 2;
+}
+
+//双语返回
+message StringBilingualResult {
+  Result result = 1;
+  StringBilingual data = 2;
+}
+
+
+message StringBilingual {
+  string cnStr = 1;
+  string enStr = 2;
+  double amount = 3;
+}
+
+message BooleanResult {
+  Result result = 1;
+  bool data = 2;
+}
+
+message LongResult {
+  Result result = 1;
+  int64 data = 2;
+}
+
+message LongParam {
+  int64 id = 1;
+}
+
+message IntResult {
+  Result result = 1;
+  int32 data = 2;
+}
+
+message IntsResult {
+  Result result = 1;
+  repeated int32 data = 2;
+}
+
+message LongsParam {
+  Result result = 1;
+  repeated int64 data = 2;
+}
+
+message LongsResult {
+  Result result = 1;
+  repeated int64 data = 2;
+}
+
+message StringListResult {
+  common.Result result = 1;
+  repeated string data = 2;
+}
+
+message Result {
+  int32 code = 1;
+  string message = 2;
+}
+
+message EnumBean {
+  int32 code = 1;//id
+  string desc = 2;//描述
+}
+
+message EnumBeanResult {
+  Result result = 1;
+  repeated EnumBean data = 2;
+}
+
+message EnumBeanStr {
+  string code = 1;//id
+  string desc = 2;//描述
+}
+
+message EnumBeanStrResult {
+  Result result = 1;
+  repeated EnumBeanStr data = 2;
+}
+
+message Page {
+  int32 number = 1;
+  int32 size = 2;
+  int32 pages = 3;
+  int32 total = 4;
+  int32 offset = 5; // 偏移
+}
+
+message PageQueryParam {
+  int32 number = 1; //当前页
+  int32 size = 2; //每页条数
+  string orderBy = 3; //排序字段
+  bool isAsc = 4; //是否升序
+  // 是否生成对象
+  //option (msgopt).generated = false;
+}
+
+message FileReq {
+  common.File file = 1;
+}
+
+message PageParam {
+  //每页数目
+  int32 size = 14;
+  //当前页，从0开始
+  int32 currentPage = 15;
+  //倒序字段
+  repeated string descList = 16;
+  //正序字段
+  repeated string ascList = 17;
+}
+
+
+message File {
+  FileHeader header = 1;
+  bytes data = 2;
+  option (msgopt).generated = false;
+}
+
+message FileHeader {
+  string filename = 1;
+  string contentType = 2;
+  map<string, Strings> mime = 3;
+}
+
+message Strings {
+  repeated string value = 1;
+}
+
+message WebapiOption {
+  // 使用multipart上传文件
+  bool upload = 1;
+  // 使用二进制流而不是json
+  bool download = 2;
+}
+
+message MessageOption {
+  // 是否生成对象
+  bool generated = 1;
+}
+
+extend google.protobuf.MethodOptions {
+  WebapiOption webapi = 72295728;
+  string timeout = 72295730;
+}
+
+extend google.protobuf.MessageOptions {
+  MessageOption msgopt = 80000001;
+}
+
+enum TaskType {
+  TaskType_PICK_UP = 0;
+  TaskType_AFTER_SALES = 1;
+}
+
+message IntParam{
+  int32 data = 1;
+}
+
+enum StatusEnum {
+  DISABLE = 0;
+  ENABLE = 1;
+  DELETE = 99;
+}
+
+message SupplierIdParam {
+  int64 supplierId = 1;
+}
+message StrIdParam {
+  string id = 1;
+}

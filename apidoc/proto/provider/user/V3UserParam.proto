@@ -1,0 +1,68 @@
+syntax = "proto3";
+package provider;
+
+option java_package = "com.vector.grpc.provider.user";
+
+import "common.proto";
+import "provider/providerCommon.proto";
+import "provider/user/V3UserModel.proto";
+
+message V3UserIdOrNameParam{
+  string idOrName=1; //姓名或账号
+  common.PageQueryParam page = 2;//分页
+}
+message UserParam{
+  int64 userId = 1; //用户ID
+  string displayName = 2; //用户姓名
+  string name = 3; //用户账号
+  string password =4 ; //备用密码
+  string gender =5 ; //性别
+  int32 age =6; //年龄
+  bool is_enable=7; //是否启用
+  string wxCpUserId = 8;//企微账户ID
+  repeated int32 teamIds=9; //团队ID
+}
+
+message UserQrCodeParam{
+  common.IdParam userId = 1; //用户Id
+  common.StringParam qrCode=2; // 二维码图片解析字符串
+}
+
+
+//返回值
+message ListUserPageRespData {
+  common.Page page = 1;
+  repeated V3UserModel items = 2;
+}
+message ListUserPageResp{
+  common.Result result = 1;
+  ListUserPageRespData data = 2;
+}
+
+
+message V3UserResp {
+  common.Result result = 1;
+  V3UserRespModel data = 2;
+}
+message V3UserRespModel {
+  int64 userId = 1; //用户ID
+  string userDisplayName = 2; //用户名
+  string userName = 3; //用户姓名
+  repeated Dict teams=4; //团队信息
+}
+
+message V3UserListResp {
+  common.Result result = 1;
+  repeated V3UserRespModel data = 2;
+}
+
+message BuListResp {
+  common.Result result = 1;
+  repeated BuModel data = 2;
+}
+
+message BuModel {
+  int64 userId =1;
+  string userName =2;
+  string buName = 3;
+}

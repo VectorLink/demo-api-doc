@@ -1,0 +1,25 @@
+syntax = "proto3";
+package provider;
+
+option java_package = "com.vector.grpc.provider.user";
+
+import "provider/providerCommon.proto";
+
+message V3UserModel{
+  int64 userId = 1; //用户ID
+  string displayName = 2; //用户姓名
+  string name = 3; //用户账号
+  string password =4 ; //备用密码
+  string gender =5 ; //性别
+  int32 age =6; //年龄
+  bool is_enable=7; //是否启用
+  string qrcode=8;//二维码
+  string wxCpUserId=9;//企微账户ID
+  string createSourceName = 10;//创建来源名称
+  string createUserName = 11; //创建人
+  string createTime = 12; //创建时间
+  repeated Dict teams=13; //团队信息
+}
+
+
+
